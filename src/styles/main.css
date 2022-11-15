@@ -1,0 +1,93 @@
+* {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+:root[color-mode="light"] {
+  --surface1: #FFFFFF;
+  --surface2: #f2f2f2;
+  --surface3: #ffffff;
+  --element1: #111111;
+  --element2: #222222;
+  --element3: #333333;
+  --elementInverse: #eee;
+  --primary: #01408e;
+  --secondary: #3c5d5c;
+  --tertiary: #fff7d6;
+  --text: #000000;
+  --alttext: #FFFFFF;
+}
+
+:root[color-mode="dark"] {
+  --surface1: #0f0f0f;
+  --surface2: #333333;
+  --surface3: #404040;
+  --element1: #eeeeee;
+  --element2: #dddddd;
+  --element3: #cccccc;
+  --elementInverse: #111;
+  --primary: #8fceff;
+  --secondary: #72faca;
+  --tertiary: #eee8a9;
+  --text: #FFFFFF;
+  --alttext: #000000;
+  --button: #0f0f0f;
+}
+
+
+#header-container {
+    position: absolute;
+    width: 100vw;
+    height: 90px;
+    background-color: white;
+    border-bottom-left-radius: 0.35em;
+    border-bottom-right-radius: 0.35em;
+    -webkit-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
+    color: black;
+    display: flex;
+    flex-direction: row;
+}
+
+#header-container ul {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: row;
+  padding: 28.5px;
+  gap: 20px;
+}
+
+#header-container a {
+  padding: 20px;
+  transition: 0.025s linear;
+}
+
+#header-container a:hover {
+  background-color: #8d8d8d;
+  border-radius: 0.25em;
+  color: white;
+  -webkit-text-stroke: 0.5px red;
+}
+
+
+
+@media (max-width: 650px)
+{
+  #header-container {
+    color: red;
+  }
+}
+
+
+.total-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url("../../public/assets/denim.webp");
+}
