@@ -22,6 +22,15 @@ model Example {
   updatedAt DateTime @updatedAt
 }
 
+model BlogPost {
+  id        Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  authorId  String
+  title     String
+  content   String @db.Text
+}
+
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())

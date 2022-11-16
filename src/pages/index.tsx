@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Storey</title>
-        <meta name="Application" content="Application" />
+        <meta name="Application" content="Application" charSet="utf-8" />
       </Head>
       <main>
         <div className="total-container">

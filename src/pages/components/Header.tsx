@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header: React.FC = () => {
     const { data : sessionData } = useSession();
@@ -15,23 +15,28 @@ const Header: React.FC = () => {
                         <li>
                             <Link href="/">Explore</Link>
                         </li>
-                        {true && (
+                        {sessionData && (
                             <li>
                                 <Link href="/">Board</Link>
                             </li>
                         )}
-                        {true && (
+                        {sessionData && (
                             <li>
                                 <Link href="/">Notes</Link>
                             </li>
                         )}
-                        {true && (
+                        {sessionData && (
                             <li>
-                                <Link href="/">Blog</Link>
+                                <Link href="/blog">Blog</Link>
                             </li>
                         )}
                     </ul>
                 </nav>
+                <div id="sign-in-container">
+                    <button id="sign-in" onClick={sessionData ? () => signOut() : () => signIn()}>
+                        {sessionData ? "Logout" : "Login"}
+                    </button>
+                </div>
             </div>
         </>
     );

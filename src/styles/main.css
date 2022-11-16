@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sono&display=swap');
+
 * {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -6,6 +8,7 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+  font-family: 'Sono', sans-serif;
 }
 
 :root[color-mode="light"] {
@@ -39,14 +42,27 @@
   --button: #0f0f0f;
 }
 
+body {
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../public/assets/denim.webp");
+}
+
+.total-container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  margin: auto;
+  background-repeat: repeat;
+}
+
 
 #header-container {
     position: absolute;
     width: 100vw;
     height: 90px;
     background-color: white;
-    border-bottom-left-radius: 0.35em;
-    border-bottom-right-radius: 0.35em;
     -webkit-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
@@ -56,7 +72,6 @@
 }
 
 #header-container ul {
-  margin-left: 12px;
   display: flex;
   flex-direction: row;
   padding: 28.5px;
@@ -72,22 +87,191 @@
   background-color: #8d8d8d;
   border-radius: 0.25em;
   color: white;
-  -webkit-text-stroke: 0.5px red;
+  text-decoration: underline;
+}
+
+#sign-in-container {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+}
+
+#sign-in {
+  padding: 14px;
+  transition: 0.025s linear;
+}
+
+#sign-in:hover {
+  background-color: #8d8d8d;
+  border-radius: 0.25em;
+  color: white;
+  text-decoration: underline;
+}
+
+.content-container {
+  position: absolute;
+  width: 100vw;
+  height: calc(100% - 90px);
+  margin-top: calc(90px);
 }
 
 
+/*
 
-@media (max-width: 650px)
+  BLOG SECTION
+
+*/
+
+#blog-panel-list {
+  width: 60%;
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.blog-panel-container {
+  background-color: rgba(255, 255, 255, 0.50);
+  border: 1px solid;
+  border-radius: 0.15em;
+  min-height: 150px;
+  transition: 0.1s linear;
+  padding: 15px;
+}
+
+.blog-panel-container:hover {
+  transform: translate(0, -3px);
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
+  background-color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.blog-panel-container h1{
+  font-style: italic;
+  font-weight: bold;
+}
+
+#blog-post-full-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40px;
+  margin: auto;
+  min-width: 200px;
+  width: 40%;
+  min-height: 90%;
+  background-color: rgba(255, 255, 255, 0.50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  padding: 20px;
+}
+
+#blog-post-full-container h1 {
+  font-style: italic;
+  font-weight: bold;
+}
+
+#blog-post-full-container h2 {
+  font-size: small;
+}
+
+#blog-post-full-container p {
+  margin-top: 5em;
+  font-size: 0.25em;
+}
+
+#blog-post-full-options {
+  margin-top: 4.25vh;
+  margin-left: 15vw;
+  height: 80vh;
+  width: 12vw;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#gen-btn {
+  background-color: white;
+  padding: 10px;
+  border: 1px solid;
+  border-radius: .4em;
+  width: 100%;
+  transition: transform 0.1s linear;
+}
+
+#gen-btn:hover {
+  border-radius: 0.75em;
+  background-color: rgba(255, 255, 255, 0.25);
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
+  transform: scale(1.05);
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.blog-post-full-editable {
+  border: 1px solid;
+  padding: 15px;
+  width: 100%;
+}
+
+#blog-post-title {
+  text-align: center;
+}
+
+#blog-post-full-content {
+  height: 60vh;
+  font-size: 0.5em;
+}
+
+
+@media (max-width: 875px)
 {
   #header-container {
-    color: red;
+    position: relative;
+    width: 178px;
+    height: 100vh;
+    top: 0;
+    margin: auto;
+    float: left;
+    color: black;
+    flex-direction: column;
+    background-color: white;
   }
-}
 
+  #header-container ul {
+    flex-direction: column;
+  }
 
-.total-container {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-image: url("../../public/assets/denim.webp");
+  #sign-in-container {
+    margin-left: 12px;
+    margin-top: auto;
+  }
+
+  .content-container {
+    position: absolute;
+    margin-top: 40px;
+    width: calc(100vw - 178px);
+    left: 178px;
+  }
+
+  #blog-post-full-options {
+    flex-direction: row;
+    width: 40%;
+    height: 80px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: -40px;
+    min-width: 40px;
+  }
 }
