@@ -1,17 +1,24 @@
 import {NextPage} from "next";
 import {useRouter} from "next/router";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Header from "../../components/Header";
 import {trpc} from "../../../utils/trpc";
 const EditBlogPost: NextPage = () => {
+
+    const [checked, setChecked] = useState(false);
+
+    const handleChecked = () => {
+        setChecked(!checked);
+    }
+
+
+
     const router = useRouter();
     const blogId = Number(router.query.post);
     const {data : blogPost} = trpc.blog.getBlogPostById.useQuery({id: blogId});
     const user = trpc.user.getUserNameById.useQuery({id: String(blogPost?.authorId)});
     const mutation = trpc.blog.updateBlogPostTitleAndContent.useMutation();
-
     function redirectToBlogPost() {
-        console.log("redirect");
         router.push(`/blog/blogpost?post=${blogId}`);
     }
 
@@ -25,7 +32,7 @@ const EditBlogPost: NextPage = () => {
     useEffect(() => {
         document.getElementById("blog-post-full-content")!.innerText = blogPost ? blogPost.content : "";
         document.getElementById("blog-post-title")!.innerText = blogPost ? blogPost.title : "";
-    })
+    }, [])
 
 
     return(
@@ -35,6 +42,10 @@ const EditBlogPost: NextPage = () => {
                 <div id="blog-post-full-options">
                     <button id="gen-btn" onClick={redirectToBlogPost}>Back</button>
                     <button id="gen-btn" onClick={saveAndRedirect}>Save</button>
+                    <div className="flex flex-col">  
+                        <h1>Public</h1>
+                        <input id="public-box" type={"checkbox"} onChange={handleChecked}></input>
+                    </div>
                 </div>
                 <div id="blog-post-full-container">
                     <div contentEditable={true} id="blog-post-title" className="blog-post-full-editable">

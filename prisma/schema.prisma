@@ -29,6 +29,7 @@ model BlogPost {
   authorId  String
   title     String
   content   String @db.Text
+  public    Boolean?
 }
 
 // Necessary for Next auth

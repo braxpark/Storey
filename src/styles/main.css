@@ -230,7 +230,7 @@ body {
 }
 
 #blog-post-full-content {
-  height: 60vh;
+  min-height: 60vh;
   font-size: 0.5em;
 }
 
