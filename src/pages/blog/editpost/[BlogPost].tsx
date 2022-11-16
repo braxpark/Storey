@@ -5,19 +5,16 @@ import Header from "../../components/Header";
 import {trpc} from "../../../utils/trpc";
 const EditBlogPost: NextPage = () => {
 
-    const [checked, setChecked] = useState(false);
-
     const handleChecked = () => {
         setChecked(!checked);
     }
-
-
 
     const router = useRouter();
     const blogId = Number(router.query.post);
     const {data : blogPost} = trpc.blog.getBlogPostById.useQuery({id: blogId});
     const user = trpc.user.getUserNameById.useQuery({id: String(blogPost?.authorId)});
     const mutation = trpc.blog.updateBlogPostTitleAndContent.useMutation();
+    const [checked, setChecked] = useState(Boolean(blogPost ? blogPost.public : false));
     function redirectToBlogPost() {
         router.push(`/blog/blogpost?post=${blogId}`);
     }
@@ -25,14 +22,16 @@ const EditBlogPost: NextPage = () => {
     const saveAndRedirect  = async () => {
         const newTitle = document.getElementById("blog-post-title")?.innerText;
         const newContent = document.getElementById("blog-post-full-content")?.innerText;
-        await mutation.mutateAsync({id: blogId, title: newTitle, content: newContent});
+        await mutation.mutateAsync({id: blogId, title: newTitle, content: newContent, public: checked});
         redirectToBlogPost();
     }
 
     useEffect(() => {
         document.getElementById("blog-post-full-content")!.innerText = blogPost ? blogPost.content : "";
         document.getElementById("blog-post-title")!.innerText = blogPost ? blogPost.title : "";
-    }, [])
+        const ele = document.getElementById("public-box") as HTMLInputElement;
+        ele.checked = checked;
+    })
 
 
     return(
@@ -42,8 +41,8 @@ const EditBlogPost: NextPage = () => {
                 <div id="blog-post-full-options">
                     <button id="gen-btn" onClick={redirectToBlogPost}>Back</button>
                     <button id="gen-btn" onClick={saveAndRedirect}>Save</button>
-                    <div className="flex flex-col">  
-                        <h1>Public</h1>
+                    <div className="flex flex-col text-center" id="gen-panel">  
+                        <h1>Publish</h1>
                         <input id="public-box" type={"checkbox"} onChange={handleChecked}></input>
                     </div>
                 </div>

@@ -9,6 +9,7 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
   font-family: 'Sono', sans-serif;
+  
 }
 
 :root[color-mode="light"] {
@@ -47,6 +48,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-image: url("../../public/assets/denim.webp");
+  overflow-x: hidden;
 }
 
 .total-container {
@@ -217,6 +219,27 @@ body {
   transform: scale(1.05);
   text-decoration: underline;
   font-style: italic;
+}
+
+#gen-panel {
+  background-color: white;
+  padding: 10px;
+  border: 1px solid;
+  border-radius: .4em;
+  width: 100%;
+}
+
+#gen-panel:hover { 
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+#public-box {
+  transform: scale(1.1);
+  transition: 0.15s linear;
+}
+
+#public-box:hover {
+  transform: scale(1.55);
 }
 
 .blog-post-full-editable {

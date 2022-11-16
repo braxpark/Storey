@@ -21,7 +21,7 @@ export const blogRouter = router({
         })
     }),
     updateBlogPostTitleAndContent: publicProcedure
-    .input(z.object({id: z.number(), title: z.string().nullish(), content: z.string().nullish()}))
+    .input(z.object({id: z.number(), title: z.string().nullish(), content: z.string().nullish(), public: z.boolean()}))
     .mutation(({ctx, input}) => {
         return ctx.prisma.blogPost.update({
             where: {
@@ -29,7 +29,8 @@ export const blogRouter = router({
             },
             data: {
                 title: input.title ? input.title : "",
-                content: input.content ? input.content : ""
+                content: input.content ? input.content : "",
+                public: input.public,
             }
         })
     })
