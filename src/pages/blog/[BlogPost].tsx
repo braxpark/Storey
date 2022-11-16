@@ -11,6 +11,7 @@ const BlogPost: NextPage = () => {
     const user = trpc.user.getUserNameById.useQuery({id: fullBlogPost ? fullBlogPost.authorId : ""})
 
     const blogPostContent = fullBlogPost ? fullBlogPost.content : "";
+    const blogPostTitle = fullBlogPost ? fullBlogPost.title : "";
 
     function redirectBackToMainBlog() {
         router.push("/blog");
@@ -21,6 +22,7 @@ const BlogPost: NextPage = () => {
     }
 
     useEffect(() => {
+        document.getElementById("blog-post-full-title")!.innerHTML = blogPostTitle;
         document.getElementById("blog-post-full-content")!.innerHTML = blogPostContent;
     });
     return(
@@ -32,9 +34,7 @@ const BlogPost: NextPage = () => {
                     <button id="gen-btn" onClick={redirectToEditBlogPost}>Edit</button>
                 </div>
                 <div id="blog-post-full-container">
-                    <h1>
-                        {`"${fullBlogPost ? fullBlogPost.title : ""}"`}
-                    </h1>
+                    <h1 id="blog-post-full-title"/>
 
                     <h2>{`Written By: ${user.data?.name}`}</h2>
 

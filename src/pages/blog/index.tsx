@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import {trpc} from "../../utils/trpc";
 import {useSession} from "next-auth/react";
@@ -12,6 +12,7 @@ const Blog: NextPage = () => {
     const blogPostsArr: any = [];
 
     const { data: blogPostRes} = trpc.blog.getAllPostsByAuthorId.useQuery({authorId: sessionData ? sessionData?.user?.id : "default"});
+    const user = trpc.user.getUserNameById.useQuery({id: sessionData ? sessionData.user?.id : ""})
     if(blogPostRes)
     {
         for(const blogPost of blogPostRes)
@@ -24,7 +25,7 @@ const Blog: NextPage = () => {
         <BlogPanel 
             id={blogPost.id}
             title={blogPost.title}
-            authorName={"You"}
+            authorName={user.data ? user.data.name : ""}
         />
     )
 
@@ -45,7 +46,7 @@ export default Blog;
 type BlogPanelProps = {
     id: number,
     title: string,
-    authorName: string,
+    authorName: string | null,
 }
 
 
@@ -56,9 +57,13 @@ const BlogPanel: React.FC<BlogPanelProps> = (props: BlogPanelProps) => {
         router.push(`/blog/blogpost?post=${props.id}`)
     }
 
+    useEffect(() => {
+        document.getElementById("blog-panel-title")!.innerHTML = props.title;
+    }, [])
+
     return(
         <div className="blog-panel-container" onClick={redirectToSpecificBlogPost}>
-            <h1>{`"${props.title}"`}</h1>
+            <h1 id="blog-panel-title" />
             <br></br>
             <h3>{`Written by: ${props.authorName}`}</h3>
         </div>

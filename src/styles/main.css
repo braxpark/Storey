@@ -175,15 +175,16 @@ body {
 #blog-post-full-container h1 {
   font-style: italic;
   font-weight: bold;
+  font-size: 0.75em;
 }
 
 #blog-post-full-container h2 {
-  font-size: small;
+  font-size: 0.75em;
 }
 
 #blog-post-full-container p {
   margin-top: 5em;
-  font-size: 0.25em;
+  font-size: 0.5em;
 }
 
 #blog-post-full-options {
@@ -238,7 +239,8 @@ body {
 {
   #header-container {
     position: relative;
-    width: 178px;
+    min-width: 125px;
+    width: 20vw;
     height: 100vh;
     top: 0;
     margin: auto;
@@ -250,6 +252,7 @@ body {
 
   #header-container ul {
     flex-direction: column;
+    font-size: 0.8em;
   }
 
   #sign-in-container {
@@ -260,8 +263,8 @@ body {
   .content-container {
     position: absolute;
     margin-top: 40px;
-    width: calc(100vw - 178px);
-    left: 178px;
+    width: calc(100vw - 24vw);
+    left: 140px;
   }
 
   #blog-post-full-options {
