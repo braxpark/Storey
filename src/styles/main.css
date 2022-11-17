@@ -47,7 +47,7 @@ body {
   margin: auto;
   width: 100vw;
   height: 100vh;
-  background-image: url("../../public/assets/denim.webp");
+  background-image: url("/assets/denim.webp");
   overflow-x: hidden;
   /*
   filter: blur(0.75px);
