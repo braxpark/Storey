@@ -1,14 +1,13 @@
 import {NextPage} from "next";
 
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import Header from "../../components/Header";
 import {trpc} from "../../../utils/trpc";
 import { useSession } from "next-auth/react";
-import { NotFoundError } from "@prisma/client/runtime";
 const CreateBlogPost: NextPage = () => {
     const [isCreating, setIsCreating] = useState(false);
-    let newBlogId: number = 0;
+    let newBlogId = 0;
     const {data: checkBlogIdRes} = trpc.blog.getIfBlogIdExists.useQuery(({id: newBlogId}));
     const router = useRouter();
     const { data: sessionData} = useSession();
@@ -22,7 +21,7 @@ const CreateBlogPost: NextPage = () => {
         // need to create date object for mutation
         const title = String(document.getElementById("blog-post-title")?.innerText);
         const content = String(document.getElementById("blog-post-full-content")?.innerText);
-        let checkBox = document.getElementById("public-box") as HTMLInputElement;
+        const checkBox = document.getElementById("public-box") as HTMLInputElement;
         const currentDate = new Date();
         const authId = String(sessionData?.user?.id);
         const getRandomInteger = () => { return Math.floor((Math.random() * (100000000 - 0) + 0))}
@@ -39,11 +38,6 @@ const CreateBlogPost: NextPage = () => {
         await mutation.mutateAsync({id: newBlogId, title: title, content, public: checkBox.checked, createdAt: currentDate, authorId: authId});
         redirectToBlogPost();
     }
-
-    useEffect(() => {
-        
-    }, [isCreating])
-
 
     return(
         <div className="total-container">

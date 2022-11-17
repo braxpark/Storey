@@ -30,6 +30,7 @@ const Blog: NextPage = () => {
             id={blogPost.id}
             title={blogPost.title}
             authorName={user.data ? user.data.name : ""}
+            key={blogPost.id}
         />
     )
 
