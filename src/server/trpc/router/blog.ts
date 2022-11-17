@@ -66,5 +66,13 @@ export const blogRouter = router({
                 id: input.id
             }
         })
-    })
+    }),
+    getNumberOfPublishedPosts: publicProcedure
+    .query(({ctx}) => {
+        return ctx.prisma.blogPost.count({
+            where: {
+                public: true
+            }
+        })
+    }),
 });

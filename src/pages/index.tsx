@@ -3,11 +3,20 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Header from "./components/Header";
 import { trpc } from "../utils/trpc";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-
-
+  const {data: sessionData} = useSession();
+  const loggedIn = sessionData ? true : false;
+  let displayMessage;
+  if(loggedIn)
+  {
+    displayMessage = <div id="main-welcome">Welcome to Storey!<br></br>Click on <Link href="/blog"><mark>Blog</mark></Link> to get started!</div>
+  }
+  else{
+    displayMessage = <div id="main-welcome">Weclome to Storey!<br></br>Please login.</div>
+  }
   return (
     <>
       <Head>
@@ -17,6 +26,9 @@ const Home: NextPage = () => {
       <main>
         <div className="total-container">
         <Header />
+          <div className="content-container flex flex-col justify-center items-center">
+            {displayMessage}
+          </div>
         </div>
       </main>
     </>
@@ -24,32 +36,4 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined },
-  );
-
-  return (
-    <div className="flex flex-col items-center justify-center gap-2">
-      {sessionData && (
-        <p className="text-2xl text-blue-500">
-          Logged in as {sessionData?.user?.name}
-        </p>
-      )}
-      {secretMessage && (
-        <p className="text-2xl text-blue-500">{secretMessage}</p>
-      )}
-      <button
-        className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
-        onClick={sessionData ? () => signOut() : () => signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
-  );
-};
 
