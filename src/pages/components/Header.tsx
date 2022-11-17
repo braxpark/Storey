@@ -17,16 +17,6 @@ const Header: React.FC = () => {
                         </li>
                         {sessionData && (
                             <li>
-                                <Link href="/">Board</Link>
-                            </li>
-                        )}
-                        {sessionData && (
-                            <li>
-                                <Link href="/">Notes</Link>
-                            </li>
-                        )}
-                        {sessionData && (
-                            <li>
                                 <Link href="/blog">Blog</Link>
                             </li>
                         )}

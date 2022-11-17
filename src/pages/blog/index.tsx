@@ -10,13 +10,17 @@ const Blog: NextPage = () => {
     const { data: sessionData } = useSession();
 
     const blogPostsArr: any = [];
+    const blogPanelsArr: any = [];
 
     const { data: blogPostRes} = trpc.blog.getAllPostsByAuthorId.useQuery({authorId: sessionData ? sessionData?.user?.id : "default"});
     const user = trpc.user.getUserNameById.useQuery({id: sessionData ? sessionData.user?.id : ""})
+    const userName = String(user ? user.data?.name : "Anonymous");
     if(blogPostRes)
     {
         for(const blogPost of blogPostRes)
         {
+            const blogPanel = (<BlogPanel id={blogPost.id} title={blogPost.title} authorName={userName}/>)
+            blogPanelsArr.push(blogPanel);
             blogPostsArr.push(blogPost);
         }
     }
@@ -29,12 +33,21 @@ const Blog: NextPage = () => {
         />
     )
 
+    function createPost() {
+        router.push("/blog/createpost/");
+    }
+
     return(
         <div className="total-container">
             <Header />
             <div className="content-container">
+                <div id="blog-panels-options">
+                    <button id="gen-btn" className="text-xs" onClick={createPost}>
+                        Create a Post
+                    </button>
+                </div>
                 <div id="blog-panel-list">
-                    {blogPanels}
+                    {blogPanelsArr}
                 </div>
             </div>
         </div>
@@ -49,7 +62,6 @@ type BlogPanelProps = {
     authorName: string | null,
 }
 
-
 const BlogPanel: React.FC<BlogPanelProps> = (props: BlogPanelProps) => {
     const router = useRouter();
 
@@ -57,13 +69,9 @@ const BlogPanel: React.FC<BlogPanelProps> = (props: BlogPanelProps) => {
         router.push(`/blog/blogpost?post=${props.id}`)
     }
 
-    useEffect(() => {
-        document.getElementById("blog-panel-title")!.innerHTML = props.title;
-    }, [])
-
     return(
         <div className="blog-panel-container" onClick={redirectToSpecificBlogPost}>
-            <h1 id="blog-panel-title" />
+            <h1 id="blog-panel-title">{props.title}</h1>
             <br></br>
             <h3>{`Written by: ${props.authorName}`}</h3>
         </div>

@@ -33,5 +33,38 @@ export const blogRouter = router({
                 public: input.public,
             }
         })
+    }),
+    createBlogPost: publicProcedure
+    .input(z.object({id: z.number(), authorId: z.string(), title: z.string(), content: z.string(), public: z.boolean(), createdAt: z.date()}))
+    .mutation(({ctx, input}) => {
+        return ctx.prisma.blogPost.create({
+            data: {
+                id: input.id,
+                authorId: input.authorId,
+                title: input.title,
+                content: input.content,
+                public: input.public,
+                createdAt: input.createdAt,
+                updatedAt: input.createdAt,
+            }
+        })   
+    }),
+    deleteBlogPostById: publicProcedure
+    .input(z.object({id: z.number()}))
+    .mutation(({ctx, input}) => {
+        return ctx.prisma.blogPost.delete({
+            where: {
+                id: input.id
+            }
+        })
+    }),
+    getIfBlogIdExists: publicProcedure
+    .input(z.object({id: z.number()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPost.findUnique({
+            where: {
+                id: input.id
+            }
+        })
     })
 });

@@ -49,6 +49,10 @@ body {
   height: 100vh;
   background-image: url("../../public/assets/denim.webp");
   overflow-x: hidden;
+  /*
+  filter: blur(0.75px);
+  -webkit-filter: blur(0.75px);
+  */
 }
 
 .total-container {
@@ -129,7 +133,9 @@ body {
 
 #blog-panel-list {
   width: 60%;
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
   margin: auto;
   margin-top: 20px;
 }
@@ -141,6 +147,7 @@ body {
   min-height: 150px;
   transition: 0.1s linear;
   padding: 15px;
+  margin-top: 20px;
 }
 
 .blog-panel-container:hover {
@@ -148,7 +155,7 @@ body {
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
   -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
   box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
 }
 
@@ -191,10 +198,24 @@ body {
 
 #blog-post-full-options {
   margin-top: 4.25vh;
-  margin-left: 15vw;
+  margin-left: 10vw;
   height: 80vh;
   width: 12vw;
   min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#blog-panels-options {
+  position: absolute;
+  margin-top: 4.25vh;
+  margin-left: 4vw;
+  height: 80vh;
+  width: 12vw;
+  min-width: 100px;
+  max-width: 175px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -257,6 +278,47 @@ body {
   font-size: 0.5em;
 }
 
+#blur-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 30;
+  visibility: hidden;
+}
+
+#blur-window-centered {
+  background-color: rgba(255, 255, 255, 0.95);
+
+  position: absolute;
+  width: 30vw;
+  min-width: 50px;
+  height: 200px;
+  left: 0;
+  right: 0;
+  top: 40%;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+#blur-window-centered button {
+  border: 1px solid;
+  border-radius: 0.25em;
+  padding: 10px;
+  transition: 0.1s linear;
+}
+
+#blur-window-centered button:hover {
+  background-color: #9a9a9a;
+}
+
 
 @media (max-width: 875px)
 {
@@ -299,5 +361,12 @@ body {
     margin: auto;
     margin-top: -40px;
     min-width: 40px;
+  }
+
+  #blog-panels-options {
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: -30px;
   }
 }
