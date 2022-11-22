@@ -35,12 +35,13 @@ export const blogRouter = router({
         })
     }),
     createBlogPost: publicProcedure
-    .input(z.object({id: z.number(), authorId: z.string(), title: z.string(), content: z.string(), public: z.boolean(), createdAt: z.date()}))
+    .input(z.object({id: z.number(), authorName: z.string(), authorId: z.string(), title: z.string(), content: z.string(), public: z.boolean(), createdAt: z.date()}))
     .mutation(({ctx, input}) => {
         return ctx.prisma.blogPost.create({
             data: {
                 id: input.id,
                 authorId: input.authorId,
+                authorName: input.authorName,
                 title: input.title,
                 content: input.content,
                 public: input.public,
@@ -75,4 +76,13 @@ export const blogRouter = router({
             }
         })
     }),
+    getRangeOfPublishedPostsWithOffsetAndStride: publicProcedure
+    .input(z.object({offset: z.number(), stride: z.number()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPost.findMany({
+            skip: input.offset,
+            take: input.stride,
+            where: { public: true },
+        })
+    })
 });

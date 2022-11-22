@@ -24,6 +24,8 @@ const CreateBlogPost: NextPage = () => {
         const checkBox = document.getElementById("public-box") as HTMLInputElement;
         const currentDate = new Date();
         const authId = String(sessionData?.user?.id);
+        const authorName = String(sessionData?.user?.name);
+        console.log(`Author name is: ${authorName}`);
         const getRandomInteger = () => { return Math.floor((Math.random() * (100000000 - 0) + 0))}
         let validBlogId = false;
         while(!validBlogId)
@@ -35,7 +37,7 @@ const CreateBlogPost: NextPage = () => {
             }
 
         }
-        await mutation.mutateAsync({id: newBlogId, title: title, content, public: checkBox.checked, createdAt: currentDate, authorId: authId});
+        await mutation.mutateAsync({id: newBlogId, title: title, content, public: checkBox.checked, createdAt: currentDate, authorId: authId, authorName: authorName});
         redirectToBlogPost();
     }
 

@@ -67,7 +67,7 @@ body {
 #header-container {
     position: absolute;
     width: 100vw;
-    height: 90px;
+    height: 75px;
     background-color: white;
     -webkit-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
@@ -80,21 +80,23 @@ body {
 #header-container ul {
   display: flex;
   flex-direction: row;
-  padding: 28.5px;
-  gap: 20px;
+  padding: 24.0px;
+  gap: 4px;
 }
 
 #header-container a {
   padding: 20px;
-  transition: 0.025s linear;
+  transition: 0.25s linear;
+  border: 1px solid;
+  border-color: transparent;
 }
 
 #header-container a:hover {
-  background-color: #8d8d8d;
+  background-color: rgba(0,0,0,0.35);
   border-radius: 0.25em;
-  color: white;
   text-decoration: underline;
 }
+
 
 #sign-in-container {
   margin-left: auto;
@@ -107,13 +109,12 @@ body {
 
 #sign-in {
   padding: 14px;
-  transition: 0.025s linear;
+  transition: 0.25s linear;
 }
 
 #sign-in:hover {
-  background-color: #8d8d8d;
+  background-color: rgba(0,0,0,0.35);
   border-radius: 0.25em;
-  color: white;
   text-decoration: underline;
 }
 
@@ -342,57 +343,38 @@ body {
   border-radius: 0.25em;
   background-color: rgba(255, 0, 0, 0.65);
   text-decoration: underline;
+  cursor: pointer;
 }
 
-
-@media (max-width: 875px)
+.content-offset
 {
-  #header-container {
-    position: relative;
-    min-width: 125px;
-    width: 20vw;
-    height: 100vh;
-    top: 0;
-    margin: auto;
-    float: left;
-    color: black;
-    flex-direction: column;
-    background-color: white;
-  }
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 75px);
+  margin-top: 75px;
+}
 
-  #header-container ul {
-    flex-direction: column;
-    font-size: 0.8em;
-    margin-left: -24px;
-  }
+.min-height-60
+{
+  min-height: 60vh;
+}
 
-  #sign-in-container {
-    margin-left: 12px;
-    margin-top: auto;
-  }
+.min-height-70
+{
+  min-height: 70vh;
+}
 
-  .content-container {
-    position: absolute;
-    margin-top: 40px;
-    width: calc(100vw - 24vw);
-    left: 140px;
-  }
+.min-height-72
+{
+  min-height: 72vh;
+}
 
-  #blog-post-full-options {
-    flex-direction: row;
-    width: 40%;
-    height: 80px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    margin-top: -40px;
-    min-width: 40px;
-  }
+.min-height-74
+{
+  min-height: 74vh;
+}
 
-  #blog-panels-options {
-    left: 0;
-    right: 0;
-    margin: auto;
-    margin-top: -30px;
-  }
+.min-height-100
+{
+  min-height: 100%;
 }

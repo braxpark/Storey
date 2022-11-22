@@ -5,13 +5,17 @@ const Header: React.FC = () => {
     const { data : sessionData } = useSession();
     //replace li {true ... with {sessionData && when auth is setup
     return(
-        <>
             <div id="header-container">
                 <nav>
                     <ul>
                         <li>
                             <Link href="/">Home</Link>
                         </li>
+                        {sessionData && (
+                            <li>
+                                <Link href="/explore">Explore</Link>
+                            </li>
+                        )}
                         {sessionData && (
                             <li>
                                 <Link href="/blog">Blog</Link>
@@ -25,7 +29,6 @@ const Header: React.FC = () => {
                     </button>
                 </div>
             </div>
-        </>
     );
 }
 
