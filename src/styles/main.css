@@ -65,7 +65,7 @@ body {
 
 
 #header-container {
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 75px;
     background-color: white;
@@ -75,6 +75,7 @@ body {
     color: black;
     display: flex;
     flex-direction: row;
+    z-index: 100;
 }
 
 #header-container ul {
@@ -350,31 +351,100 @@ body {
 {
   position: absolute;
   width: 100%;
-  height: calc(100vh - 75px);
+  min-height: calc(100% - 75px);
   margin-top: 75px;
 }
 
 .min-height-60
 {
-  min-height: 60vh;
+  min-height: 60%;
 }
 
 .min-height-70
 {
-  min-height: 70vh;
+  min-height: 70%;
 }
 
 .min-height-72
 {
-  min-height: 72vh;
+  min-height: 72%;
 }
 
 .min-height-74
 {
-  min-height: 74vh;
+  min-height: 74%;
+}
+
+.min-height-80
+{
+  min-height: 80%;
 }
 
 .min-height-100
 {
   min-height: 100%;
 }
+
+.min-height-screen {
+  min-height: 100vh;
+  background-repeat: repeat;
+}
+
+.min-height-full {
+  min-height: 100%;
+  background-repeat: repeat;
+}
+
+.min-height-adj {
+  min-height: calc(120vh - 75px);
+}
+
+.min-height-80-p {
+  min-height: 50%;
+}
+
+.height-92 {
+  height: 92%;
+}
+
+.height-92-min {
+  min-height: 92%;
+}
+
+.blog-tile-height {
+  min-height: 60px;
+}
+
+.explore-header-height {
+  height: 75px;
+}
+.explore-footer-height {
+  height: 75px;
+}
+
+.blog-tile {
+  transition: 0.2s ease-in-out;
+}
+
+.blog-tile:hover {
+  flex-grow:10;
+  transform: scale(1.01);
+  -webkit-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.hoverable-button 
+{
+  transition: 0.15s linear;
+}
+
+.hoverable-button:hover 
+{
+  border-radius: 0.25em;
+  background-color: #9a9a9a;
+  color: white;
+}
+
