@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   let displayMessage;
   if(loggedIn)
   {
-    displayMessage = <div id="main-welcome">Welcome to Storey!<br></br>Click on <Link href="/blog"><mark>Blog</mark></Link> to get started!</div>
+    displayMessage = <div id="main-welcome">Welcome to Storey!<br></br>Click on <Link href={`/user/${sessionData?.user?.id}/blog`}><mark>Blog</mark></Link> to get started!</div>
   }
   else{
     displayMessage = <div id="main-welcome">Weclome to Storey!<br></br>Please <mark onClick={() => signIn()}>Login</mark>.</div>

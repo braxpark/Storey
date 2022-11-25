@@ -1,19 +1,20 @@
 import {NextPage} from "next";
 
 import {useRouter} from "next/router";
-import { useState} from "react";
-import Header from "../../components/Header";
-import {trpc} from "../../../utils/trpc";
-import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import Header from "../../../../components/Header";
+import {trpc} from "../../../../../utils/trpc";
+import { useSession, signIn } from "next-auth/react";
 const CreateBlogPost: NextPage = () => {
-    const [isCreating, setIsCreating] = useState(false);
     let newBlogId = 0;
     const {data: checkBlogIdRes} = trpc.blog.getIfBlogIdExists.useQuery(({id: newBlogId}));
     const router = useRouter();
     const { data: sessionData} = useSession();
     const mutation = trpc.blog.createBlogPost.useMutation();
+    const userId = router.query.userId;
+    const authId = String(sessionData?.user?.id);
     function redirectToBlogPost() {
-        router.push("/blog");
+        router.push(`/user/${userId}/blog`);
     }
 
     const createAndRedirect  = async () => {
@@ -23,7 +24,6 @@ const CreateBlogPost: NextPage = () => {
         const content = String(document.getElementById("blog-post-full-content")?.innerText);
         const checkBox = document.getElementById("public-box") as HTMLInputElement;
         const currentDate = new Date();
-        const authId = String(sessionData?.user?.id);
         const authorName = String(sessionData?.user?.name);
         console.log(`Author name is: ${authorName}`);
         const getRandomInteger = () => { return Math.floor((Math.random() * (100000000 - 0) + 0))}
@@ -39,6 +39,18 @@ const CreateBlogPost: NextPage = () => {
         }
         await mutation.mutateAsync({id: newBlogId, title: title, content, public: checkBox.checked, createdAt: currentDate, authorId: authId, authorName: authorName});
         redirectToBlogPost();
+    }
+    const [isReady, setIsReady] = useState(false);
+    useEffect(() => {
+        setIsReady(true);
+    }, [])
+
+    if(isReady)
+    {
+        if(!sessionData || (userId != authId))
+        {
+            signIn();
+        }
     }
 
     return(

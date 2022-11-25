@@ -3,6 +3,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header: React.FC = () => {
     const { data : sessionData } = useSession();
+    const userId = sessionData ? sessionData?.user?.id : -1;
     //replace li {true ... with {sessionData && when auth is setup
     return(
             <div id="header-container">
@@ -18,7 +19,7 @@ const Header: React.FC = () => {
                         )}
                         {sessionData && (
                             <li>
-                                <Link href="/blog">Blog</Link>
+                                <Link href={`/user/${userId}/blog`}>My Blog</Link>
                             </li>
                         )}
                     </ul>

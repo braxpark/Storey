@@ -76,6 +76,16 @@ export const blogRouter = router({
             }
         })
     }),
+    getIfPostExists: publicProcedure
+    .input(z.object({blogId: z.number()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPost.count({
+            where: {
+                public: true,
+                id: input.blogId,
+            }
+        })
+    }),
     getRangeOfPublishedPostsWithOffsetAndStride: publicProcedure
     .input(z.object({offset: z.number(), stride: z.number()}))
     .query(({ctx, input}) => {
@@ -84,5 +94,41 @@ export const blogRouter = router({
             take: input.stride,
             where: { public: true },
         })
-    })
+    }),
+    getPublishedPostsWithOffsetAndStrideByDateDesc: publicProcedure
+    .input(z.object({offset: z.number(), stride: z.number()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPost.findMany({
+            skip: input.offset,
+            take: input.stride,
+            where: {public: true},
+            orderBy: {
+                createdAt: "desc"
+            }
+        })
+    }),
+    getPublishedPostsWithOffsetAndStrideByDateAsc: publicProcedure
+    .input(z.object({offset: z.number(), stride: z.number()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPost.findMany({
+            skip: input.offset,
+            take: input.stride,
+            where: {public: true},
+            orderBy: {
+                createdAt: "asc"
+            }
+        })
+    }),
+    getPublishedPostsWithOffsetAndStrideByAuthor: publicProcedure
+    .input(z.object({offset: z.number(), stride: z.number(), authorId: z.string()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPost.findMany({
+            skip: input.offset,
+            take: input.stride,
+            where: {
+                public: true,
+                authorId: input.authorId,
+            },
+        })
+    }),
 });

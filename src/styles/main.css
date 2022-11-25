@@ -93,7 +93,8 @@ body {
 }
 
 #header-container a:hover {
-  background-color: rgba(0,0,0,0.35);
+  background-color: #353535;
+  color: white;
   border-radius: 0.25em;
   text-decoration: underline;
 }
@@ -114,7 +115,8 @@ body {
 }
 
 #sign-in:hover {
-  background-color: rgba(0,0,0,0.35);
+  background-color: #353535;
+  color: white;
   border-radius: 0.25em;
   text-decoration: underline;
 }
@@ -143,7 +145,7 @@ body {
 }
 
 .blog-panel-container {
-  background-color: rgba(255, 255, 255, 0.50);
+  background-color: rgba(255, 255, 255, 1.0);
   border: 1px solid;
   border-radius: 0.15em;
   min-height: 150px;
@@ -154,10 +156,10 @@ body {
 
 .blog-panel-container:hover {
   transform: translate(0, -3px);
+  transform: scale(1.025);
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
   -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
   box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.35);
-  background-color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
 }
 
@@ -318,7 +320,8 @@ body {
 }
 
 #blur-window-centered button:hover {
-  background-color: #9a9a9a;
+  background-color: #353535;
+  color: white;
 }
 
 #main-welcome {
@@ -416,7 +419,7 @@ body {
 }
 
 .explore-header-height {
-  height: 75px;
+  height: 125px;
 }
 .explore-footer-height {
   height: 75px;
@@ -428,12 +431,21 @@ body {
 
 .blog-tile:hover {
   flex-grow:10;
-  transform: scale(1.01);
+  transform: scale(1.025);
   -webkit-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
   border-radius: 2px;
   cursor: pointer;
+}
+
+.blog-tile > * {
+  transition: 0.15s ease-in-out;
+}
+
+.blog-tile:hover > * {
+  font-weight: bold;
+  font-size: 1em;
 }
 
 .hoverable-button 
@@ -443,8 +455,34 @@ body {
 
 .hoverable-button:hover 
 {
-  border-radius: 0.25em;
-  background-color: #9a9a9a;
+  border-radius: 0.75em;
+  background-color: #353535;
   color: white;
 }
+
+.explore-header-options-interact
+{
+  border-radius: 0.25em;
+  background-color: #2c2b2b;
+  color: white;
+  transition: 0.15s linear;
+  border: 2px solid;
+  border-color: transparent;
+  padding: 0px;
+}
+
+.explore-header-options
+{
+  border-radius: 0.25em;
+  background-color: #2c2b2b;
+  color: white;
+}
+
+.explore-header-options-interact:hover 
+{
+  border-radius: 0.5em;
+  border-color: black;
+  background-color: #504f4f;
+}
+
 
