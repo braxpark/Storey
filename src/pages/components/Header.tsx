@@ -12,11 +12,9 @@ const Header: React.FC = () => {
                         <li>
                             <Link href="/">Home</Link>
                         </li>
-                        {sessionData && (
-                            <li>
-                                <Link href="/explore">Explore</Link>
-                            </li>
-                        )}
+                        <li>
+                            <Link href="/explore">Explore</Link>
+                        </li>
                         {sessionData && (
                             <li>
                                 <Link href={`/user/${userId}/blog`}>My Blog</Link>

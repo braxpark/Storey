@@ -51,7 +51,6 @@ const Explore: NextPage = () => {
                     <option value="no-filter">No Filter</option>
                     <option value="recent">Newest</option>
                     <option value="oldest">Oldest</option>
-                    <option value="author">Author</option>
                 </select>
             </div>
         );
@@ -72,23 +71,13 @@ type BlogListProps = {
             {
                 for(const blogPost of blogPostResult)
                 {
-                    blogPanels.push(<BlogTile title={blogPost.title} author={blogPost.authorName} preview={"Test Preview"} key={blogPost.title} />);
+                    blogPanels.push(<BlogTile title={blogPost.title} authorId={blogPost.authorId} blogId={blogPost.id} author={blogPost.authorName} preview={"Test Preview"} key={blogPost.title} />);
                 }
             }
             return blogPanels;
         }
 
-        let blogPanelsArr: any = [];
-        /*
-        if(currentPagePostsRes)
-        {
-            for(const blogPost of currentPagePostsRes)
-            {
-                const blogPanel = (<BlogTile title={blogPost.title} author={blogPost.authorName} preview={"Test Preview"} key={blogPost.title} />);
-                blogPanelsArr.push(blogPanel);
-            }
-        }
-        */
+       let blogPanelsArr: any = [];
        switch(filterValue)
        {
         case "no-filter":
@@ -126,11 +115,18 @@ type BlogListProps = {
 type BlogTileProps = {
     title: string,
     author?: string | null,
+    authorId?: string | null,
+    blogId?: number | null,
     preview?: string,
 }
     const BlogTile: React.FC<BlogTileProps>= (props: BlogTileProps) => {
+        function redirectToPost()
+        {
+            const redirectUrl = `/user/${props.authorId}/blog/post?id=${props.blogId}`;
+            router.push(redirectUrl);
+        }
         return(
-            <div  className={`blog-tile bg-white w-full blog-tile-height flex-grow mt-0 mb-0 m-auto flex flex-col gap-1 p-2 rounded-lg border-black border-solid border-2`}>
+            <div onClick={redirectToPost} className={`blog-tile bg-white w-full blog-tile-height flex-grow mt-0 mb-0 m-auto flex flex-col gap-1 p-2 rounded-lg border-black border-solid border-2`}>
                 <h1 className={"text-sm mt-0"}>{props.title}</h1>
                 {props.author && (
                     <h2 className={"text-xs absolutet"}>Written by: {props.author}</h2>

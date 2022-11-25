@@ -37,7 +37,7 @@ const Post: NextPage = () => {
     }
 
     function redirectBackToMainBlog() {
-        router.push(newUrl);
+        router.back();
     }
 
     function redirectToEditBlogPost() {

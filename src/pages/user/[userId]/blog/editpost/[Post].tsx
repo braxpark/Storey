@@ -22,7 +22,7 @@ const EditBlogPost: NextPage = () => {
     }
     
     function redirectToBlogPost() {
-        router.push(`/user/${router.query.userId}/blog/post?id=${blogId}`);
+        router.push(`/user/${router.query.userId}/blog`);
     }
 
     const saveAndRedirect  = async () => {
