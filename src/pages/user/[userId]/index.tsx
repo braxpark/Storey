@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useSession, signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header";
+import Loading from "../../components/Loading";
 
 const MainUserPage: NextPage = () => {
      const router = useRouter();
@@ -27,7 +28,8 @@ const MainUserPage: NextPage = () => {
             {auth && (
                 <>
                     <Header />
-                    <div className={"content-container"}>
+                    <div className={"content-container flex flex-col justify-center items-center"}>
+                        <Loading />
                     </div>
                 </>
             )}
