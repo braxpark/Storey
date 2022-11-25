@@ -71,7 +71,7 @@ type BlogListProps = {
             {
                 for(const blogPost of blogPostResult)
                 {
-                    blogPanels.push(<BlogTile title={blogPost.title} authorId={blogPost.authorId} blogId={blogPost.id} author={blogPost.authorName} preview={"Test Preview"} key={blogPost.title} />);
+                    blogPanels.push(<BlogTile title={blogPost.title} authorId={blogPost.authorId} blogId={blogPost.id} author={blogPost.authorName} key={blogPost.title} />);
                 }
             }
             return blogPanels;
