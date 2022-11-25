@@ -46,8 +46,8 @@ const Explore: NextPage = () => {
         }
         return(
             <div className={"flex flex-row justify-center items-center bg-white w-11/12 left-0 right-0 m-auto mt-8 explore-header-height z-30 rounded-lg border-solid border-2 border-black gap-2"}>
-                <div className={"bg-white bg-opacity-40 h-12 flex flex-col justify-center explore-header-options"}><p className={"p-4"}>Filter By:</p></div>
-                <select value={filterValue} onChange={(event) => handleFilterChange(event)} id="filter-select" className={"bg-white bg-opacity-40 h-12 explore-header-options-interact"}>
+                <div className={"h-12 flex flex-col justify-center explore-header-options"}><p className={"p-4"}>Filter By:</p></div>
+                <select value={filterValue} onChange={(event) => handleFilterChange(event)} id="filter-select" className={"h-12 explore-header-options-interact"}>
                     <option value="no-filter">No Filter</option>
                     <option value="recent">Newest</option>
                     <option value="oldest">Oldest</option>
