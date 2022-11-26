@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import { useSession } from "next-auth/react";
 import Header from "../../../../components/Header";
+import Loading from "../../../../components/Loading";
 import {trpc} from "../../../../../utils/trpc";
 const EditBlogPost: NextPage = () => {
 
@@ -60,9 +61,13 @@ const EditBlogPost: NextPage = () => {
     const [isReady, setIsReady] = useState(false);
 
     if(isReady)
-    {
-        document.getElementById("blog-post-full-content")!.innerText = blogPost ? blogPost.content : "";
-        document.getElementById("blog-post-title")!.innerText = blogPost ? blogPost.title : "";
+    {   
+
+        if(document.getElementById("blog-post-full-content") != null)
+            document.getElementById("blog-post-full-content")!.innerText = blogPost ? blogPost.content : "";
+
+        if(document.getElementById("blog-post-title") != null)
+            document.getElementById("blog-post-title")!.innerText = blogPost ? blogPost.title : "";
         if(!sessionData || (sessionData?.user?.id !== blogPost?.authorId))
         {
             router.push("/oops/unallowed");
@@ -73,41 +78,42 @@ const EditBlogPost: NextPage = () => {
         setChecked(initPublished);
         setIsReady(true);
     },[])
-
-    return(<div className={"absolute"}>
-                <div className="total-container" id="edit-post-total">
-                    <Header />
-                    <div className="content-container" id="blog-post-full-outer">
-                        <div id="blog-post-full-options">
-                            <button id="gen-btn" onClick={redirectToBlogPost}>Back</button>
-                            <button id="gen-btn" onClick={saveAndRedirect}>Save</button>
-                            <button id="gen-btn" onClick={handleDelete}>Delete</button>
-                            <div className="flex flex-col text-center" id="gen-panel">  
-                                <h1>Publish</h1>
-                                <input checked={checked} id="public-box" type={"checkbox"} onChange={handleChecked}></input>
-                            </div>
-                        </div>
-                        <div id="blog-post-full-container">
-                            <div contentEditable={true} id="blog-post-title" className="blog-post-full-editable">
-
-                            </div>
-                            <div>
-                                {`Written By: ${user.data?.name}`}
-                            </div>
-                            <br></br>
-                            <div contentEditable={true} id="blog-post-full-content" className="blog-post-full-editable">
-
-                            </div>
-                        </div>
-                    </div>
+    const mainContent = (<div className={"absolute"}>
+    <div className="total-container" id="edit-post-total">
+        <Header />
+        <div className="content-container" id="blog-post-full-outer">
+            <div id="blog-post-full-options">
+                <button id="gen-btn" onClick={redirectToBlogPost}>Back</button>
+                <button id="gen-btn" onClick={saveAndRedirect}>Save</button>
+                <button id="gen-btn" onClick={handleDelete}>Delete</button>
+                <div className="flex flex-col text-center" id="gen-panel">  
+                    <h1>Publish</h1>
+                    <input checked={checked} id="public-box" type={"checkbox"} onChange={handleChecked}></input>
                 </div>
-                <div id="blur-container">
-                    <div id="blur-window-centered">
-                        <button onClick={deletePostAndRedirect}>Confirm Delete</button>
-                        <button onClick={confirmationCancel}>Cancel</button>
-                    </div>
+            </div>
+            <div id="blog-post-full-container">
+                <div contentEditable={true} id="blog-post-title" className="blog-post-full-editable">
+
                 </div>
-            </div>);
+                <div>
+                    {`Written By: ${user.data?.name}`}
+                </div>
+                <br></br>
+                <div contentEditable={true} id="blog-post-full-content" className="blog-post-full-editable">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="blur-container">
+        <div id="blur-window-centered">
+            <button onClick={deletePostAndRedirect}>Confirm Delete</button>
+            <button onClick={confirmationCancel}>Cancel</button>
+        </div>
+    </div>
+</div>);
+const loading = (<Loading />);
+    return(<>{isReady ? mainContent : loading}</>);
 }
 
 export default EditBlogPost;

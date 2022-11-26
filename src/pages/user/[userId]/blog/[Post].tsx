@@ -1,9 +1,10 @@
 import {NextPage} from "next";
 import {useRouter} from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import {trpc} from "../../../../utils/trpc";
 import Header from "../../../components/Header";
+import Loading from "../../../components/Loading";
 
 const Post: NextPage = () => {
     const router = useRouter();
@@ -45,11 +46,22 @@ const Post: NextPage = () => {
         router.push(editUrl);
     }
 
+    const[isReady, setIsReady] = useState(false);
+
     useEffect(() => {
-        document.getElementById("blog-post-full-title")!.innerHTML = blogPostTitle;
-        document.getElementById("blog-post-full-content")!.innerHTML = blogPostContent;
+        if(fullBlogPost)
+            setIsReady(true);
+    },)
+
+
+    useEffect(() => {
+        if(document.getElementById("blog-post-full-title") != null)
+            document.getElementById("blog-post-full-title")!.innerHTML = blogPostTitle;
+        if(document.getElementById("blog-post-full-content") != null)
+            document.getElementById("blog-post-full-content")!.innerHTML = blogPostContent;
     });
-    return(
+
+    const mainContent = (
        <div className="total-container">
             <Header />
             <div className="content-container" id="blog-post-full-outer">
@@ -61,12 +73,20 @@ const Post: NextPage = () => {
                     <h1 id="blog-post-full-title"/>
 
                     <h2>{`Written By: ${user.data?.name}`}</h2>
-
-                    <p id="blog-post-full-content" />
+                    <br></br>
+                    <div id="blog-post-full-content" />
 
                 </div>
             </div>
         </div>
+    );
+
+    const loading = (<Loading />);
+
+    return(
+        <>
+            {isReady ? mainContent : loading}
+        </>
     );
 }
 

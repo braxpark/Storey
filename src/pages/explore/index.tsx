@@ -1,5 +1,6 @@
 import { NextPage } from "next/types";
 import Header from "../components/Header";
+import Loading from "../components/Loading";
 import {trpc} from "../../utils/trpc";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
@@ -10,11 +11,10 @@ const Explore: NextPage = () => {
     const router = useRouter();
     const numberOfPostsPerPage = 10;
     const [page, setPage] = useState(1);
+    const { data: sessionData} = useSession();
     const { data: numberOfPosts} = trpc.blog.getNumberOfPublishedPosts.useQuery();
     const blogAuthor = "claikl0ii0000uml0qxbsfd3b";
-
     let initFilter;
-
     if(typeof window !== 'undefined')
         initFilter = localStorage.getItem("filter");
     const[filterValue, setFilterValue] = useState(initFilter ? initFilter : "no-filter");
@@ -137,17 +137,33 @@ type BlogTileProps = {
             </div>
         );
     }    
-    return(
-        <div className="total-container">
-            <Header />
-            <div className={"content-offset"}>
+
+    const mainContent = (
                 <div className={"absolute bg-white bg-opacity-40 w-5/6 min-height-100 left-0 right-0 m-auto"}>
                     <ExplorerHeader></ExplorerHeader>
                     <BlogList page={page}></BlogList>
                     <ExplorerFooter></ExplorerFooter>
                 </div>
+    );
+
+    const loading = (
+            <Loading />
+    );
+    const[isReady, setIsReady] = useState(false);
+    
+    useEffect(() => {
+            if(numberOfPosts)
+                setIsReady(true);
+    },)
+    return(
+        <>
+            <div className="total-container">
+                <Header />
+                <div className={"content-offset"}>
+                    {isReady ? mainContent : loading}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
