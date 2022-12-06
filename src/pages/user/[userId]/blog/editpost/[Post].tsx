@@ -82,10 +82,10 @@ const EditBlogPost: NextPage = () => {
     <div className="total-container" id="edit-post-total">
         <Header />
         <div className="content-container" id="blog-post-full-outer">
-            <div id="blog-post-full-options">
-                <button id="gen-btn" onClick={redirectToBlogPost}>Back</button>
-                <button id="gen-btn" onClick={saveAndRedirect}>Save</button>
-                <button id="gen-btn" onClick={handleDelete}>Delete</button>
+            <div className={""} id="blog-post-full-options">
+                <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={redirectToBlogPost}>Back</button>
+                <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={saveAndRedirect}>Save</button>
+                <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={handleDelete}>Delete</button>
                 <div className="flex flex-col text-center" id="gen-panel">  
                     <h1>Publish</h1>
                     <input checked={checked} id="public-box" type={"checkbox"} onChange={handleChecked}></input>

@@ -58,9 +58,9 @@ const CreateBlogPost: NextPage = () => {
             <Header />
             <div className="content-container" id="blog-post-full-outer">
                 <div id="blog-post-full-options">
-                    <button id="gen-btn" onClick={redirectToBlogPost}>Back</button>
-                    <button id="gen-btn" onClick={createAndRedirect}>Create</button>
-                    <div className="flex flex-col text-center" id="gen-panel">  
+                    <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={redirectToBlogPost}>Back</button>
+                    <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={createAndRedirect}>Create</button>
+                    <div className={"min-w-full flex flex-col text-center bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"}>  
                         <h1>Publish</h1>
                         <input id="public-box" type={"checkbox"}></input>
                     </div>

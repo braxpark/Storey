@@ -38,7 +38,7 @@ const UserBlog: NextPage = () => {
         }
 
         return(
-            <div className="blog-panel-container" onClick={redirectToSpecificBlogPost}>
+            <div className="w-full blog-panel-container" onClick={redirectToSpecificBlogPost}>
                 <h1 id="blog-panel-title">{props.title}</h1>
                 <br></br>
                 <h3>{`Written by: ${props.authorName}`}</h3>
@@ -62,23 +62,39 @@ const UserBlog: NextPage = () => {
     function goToCreatePost() {
         router.push(`/user/${id}/blog/createpost`);
     }
+   const [filter, setFilter] = useState("");
+
+        function handleFilterChange(e: any) {
+            setFilter(e.target.value);
+            localStorage.setItem("filter", e.target.value);
+        }
 
     return(
             <>
                 <Header />
                 <div className={"content-container"}>
-                    <div id="blog-panels-options">
-                        {auth && (
-                        <button id="gen-btn" className="text-xs" onClick={goToCreatePost}>
-                            Create a Post
-                        </button>)}
-                    </div>
-                    <div id="blog-panel-list">
-                        {blogPanelsArr}
+                    <div className={"flex flex-col w-50 items-center justify-center"}>
+                        <div className={"flex flex-row bg-white w-11/12 left-0 right-0 m-auto mt-8 explore-header-height z-30 rounded-lg justify-center items-center gap-12"}>
+                            {auth && (
+                            <button className="h-12 text-xs p-4 bg-white border-solid border-black border focus:text-black hover:rounded-lg hoverable-button" onClick={goToCreatePost}>
+                                Create a Post
+                            </button>)}
+                            <div className={"flex flex-row gap-2"}>
+                                <div className={"h-12 flex flex-col justify-center explore-header-options"}><p className={"p-4"}>Filter By:</p>
+                                </div>
+                                <select value={filter} onChange={(event) => handleFilterChange(event)} id="filter-select" className={"h-12 explore-header-options-interact"}>
+                                    <option value="no-filter">No Filter</option>
+                                    <option value="recent">Newest</option>
+                                    <option value="oldest">Oldest</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className={"w-4/5"}>
+                            {blogPanelsArr}
+                        </div>
                     </div>
                 </div>
             </>
     );
 }
-
 export default UserBlog;

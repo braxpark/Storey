@@ -17,7 +17,7 @@ const Header: React.FC = () => {
                         </li>
                         {sessionData && (
                             <li>
-                                <Link href={`/user/${userId}/blog`}>My Blog</Link>
+                                <Link href={`/user/${userId}/blog`}>Blog</Link>
                             </li>
                         )}
                     </ul>

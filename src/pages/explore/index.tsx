@@ -5,7 +5,6 @@ import {trpc} from "../../utils/trpc";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
-import ReactDOM from "react-dom";
 
 const Explore: NextPage = () => {
     const router = useRouter();
@@ -19,22 +18,22 @@ const Explore: NextPage = () => {
         initFilter = localStorage.getItem("filter");
     const[filterValue, setFilterValue] = useState(initFilter ? initFilter : "no-filter");
     const ExplorerFooter: React.FC = () => {
-        function logPage () { console.log(`Page is: ${page}`); }
         function goNextPage () {
             if(page < Number(numberOfPosts) / numberOfPostsPerPage)
                 setPage(page+1);
-            logPage();
         }
 
         function goPrevPage () {
             if(page > 1)
                 setPage(page-1);
-            logPage();
         }
+        //let btnBgColorPrev = (page == 1 || page == (Number(numberOfPosts) / numberOfPostsPerPage + 1)) ? "bg-red-400" : "bg-white";
+        let prevBtnBgColor = (page == 1) ? "bg-gray-600" : "bg-white";
+        let nextBtnBgColor = (page == (Math.floor(Number(numberOfPosts) / numberOfPostsPerPage) + 1)) ? "bg-gray-600" : "bg-white";
         return(
             <div className={"relative bg-transparent w-11/12 explore-footer-height left-0 right-0 bottom-0 m-auto mt-8 flex flex-row justify-center items-center gap-8 p-2 z-30"}>
-                <button className={"bg-white border-2 border-black h-12 p-2 hoverable-button"} onClick={goPrevPage}>Prev Page</button>
-                <button className={"bg-white border-2 border-black h-12 p-2 hoverable-button"} onClick={goNextPage}>Next Page</button>
+                <button className={`${prevBtnBgColor} border-2 border-black h-12 p-2 hoverable-button`} onClick={goPrevPage}>Prev Page</button>
+                <button className={`${nextBtnBgColor} border-2 border-black h-12 p-2 hoverable-button`} onClick={goNextPage}>Next Page</button>
             </div>
         );
     }
@@ -45,7 +44,7 @@ const Explore: NextPage = () => {
             localStorage.setItem("filter", e.target.value);
         }
         return(
-            <div className={"flex flex-row justify-center items-center bg-white w-11/12 left-0 right-0 m-auto mt-8 explore-header-height z-30 rounded-lg border-solid border-2 border-black gap-2"}>
+            <div className={"flex flex-row justify-center items-center bg-white w-11/12 left-0 right-0 m-auto mt-8 explore-header-height z-30 rounded-lg gap-2"}>
                 <div className={"h-12 flex flex-col justify-center explore-header-options"}><p className={"p-4"}>Filter By:</p></div>
                 <select value={filterValue} onChange={(event) => handleFilterChange(event)} id="filter-select" className={"h-12 explore-header-options-interact"}>
                     <option value="no-filter">No Filter</option>
@@ -126,7 +125,7 @@ type BlogTileProps = {
             router.push(redirectUrl);
         }
         return(
-            <div onClick={redirectToPost} className={`blog-tile bg-white w-full blog-tile-height flex-grow mt-0 mb-0 m-auto flex flex-col gap-1 p-2 rounded-lg border-black border-solid border-2`}>
+            <div onClick={redirectToPost} className={`blog-tile bg-white w-full blog-tile-height flex-grow mt-0 mb-0 m-auto flex flex-col gap-1 p-2 rounded-lg border-black border-solid border-1 duration-500 ease-linear`}>
                 <h1 className={"text-sm mt-0"}>{props.title}</h1>
                 {props.author && (
                     <h2 className={"text-xs absolutet"}>Written by: {props.author}</h2>
@@ -168,5 +167,3 @@ type BlogTileProps = {
 }
 
 export default Explore;
-
-// TODO : redo styling for explore page; maybe break up each page into a new route??

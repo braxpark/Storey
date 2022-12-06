@@ -14,6 +14,22 @@ const Post: NextPage = () => {
     const user = trpc.user.getUserNameById.useQuery({id: fullBlogPost ? fullBlogPost.authorId : ""})
     const numberOfDigits = String(router.query.id).length;
     const newUrl = router.asPath.slice(0, router.asPath.length - numberOfDigits - 9);
+    const date = fullBlogPost?.updatedAt;
+    const filteredDate = getGoodDateFromDbOutput(String(date));
+    console.log(filteredDate);
+    function getGoodDateFromDbOutput(input: string)
+    {       
+        /*
+        // Format:
+        // Fri Nov 25 2022 18:47:25 GMT-0600 (Central Standard Time) 
+        */
+
+        let tokens = input.split(" ");
+        tokens = tokens.slice(0, 5);
+
+        const result = tokens[0] + " " + tokens[1] + " " + tokens[2] + " " + tokens[3] + " " + tokens[4];
+        return result;
+    }
 
     function checkIfGoodPage()
     {
@@ -66,16 +82,15 @@ const Post: NextPage = () => {
             <Header />
             <div className="content-container" id="blog-post-full-outer">
                 <div id="blog-post-full-options">
-                    <button id="gen-btn" onClick={redirectBackToMainBlog}>Back</button>
-                    { authorized() && (<button id="gen-btn" onClick={redirectToEditBlogPost}>Edit</button>)}
+                    <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={redirectBackToMainBlog}>Back</button>
+                    { authorized() && (<button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black  hoverable-button"} id="gen-btn" onClick={redirectToEditBlogPost}>Edit</button>)}
                 </div>
                 <div id="blog-post-full-container">
                     <h1 id="blog-post-full-title"/>
-
                     <h2>{`Written By: ${user.data?.name}`}</h2>
+                    <h2>{`Last Edited ${filteredDate}`}</h2>
                     <br></br>
                     <div id="blog-post-full-content" />
-
                 </div>
             </div>
         </div>
