@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   const loggedIn = sessionData ? true : false;
   let displayMessage;
 
-  let markStyles = "bg-red-600 hover:underline hover:bg-red-600 hover:rounded-lg hover:font-bold p-1.5 duration-300";
+  const markStyles = "bg-red-600 hover:underline hover:bg-red-600 hover:rounded-lg hover:font-bold p-1.5 duration-300";
   if(loggedIn)
   {
     displayMessage = (
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
                       </>
                      );
   }
-  let mainWrapper = (
+  const mainWrapper = (
       <div id="welcome-menu" className={"text-center h-60 bg-white bg-opacity-90 p-12 rounded-lg flex flex-col justify-center items-center"}>
         <div>
           Welcome to Storey!

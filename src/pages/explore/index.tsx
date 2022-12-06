@@ -28,8 +28,8 @@ const Explore: NextPage = () => {
                 setPage(page-1);
         }
         //let btnBgColorPrev = (page == 1 || page == (Number(numberOfPosts) / numberOfPostsPerPage + 1)) ? "bg-red-400" : "bg-white";
-        let prevBtnBgColor = (page == 1) ? "bg-gray-600" : "bg-white";
-        let nextBtnBgColor = (page == (Math.floor(Number(numberOfPosts) / numberOfPostsPerPage) + 1)) ? "bg-gray-600" : "bg-white";
+        const prevBtnBgColor = (page == 1) ? "bg-gray-600" : "bg-white";
+        const nextBtnBgColor = (page == (Math.floor(Number(numberOfPosts) / numberOfPostsPerPage) + 1)) ? "bg-gray-600" : "bg-white";
         return(
             <div className={"relative bg-transparent w-11/12 explore-footer-height left-0 right-0 bottom-0 m-auto mt-8 flex flex-row justify-center items-center gap-8 p-2 z-30"}>
                 <button className={`${prevBtnBgColor} border-2 border-black h-12 p-2 hoverable-button`} onClick={goPrevPage}>Prev Page</button>
