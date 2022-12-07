@@ -13,7 +13,7 @@ datasource db {
   // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
   // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
   url      = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  relationMode = "prisma"
 }
 
 model Example {
@@ -22,8 +22,14 @@ model Example {
   updatedAt DateTime @updatedAt
 }
 
+model Hashtag {
+  id        String  @id @default(cuid())
+  value     String
+  blogposts BlogPost[]
+}
+
 model BlogPost {
-  id        Int @id
+  id        String @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   authorId  String
@@ -31,6 +37,7 @@ model BlogPost {
   title     String
   content   String @db.Text
   public    Boolean?
+  hashtags  Hashtag[]
 }
 
 // Necessary for Next auth
@@ -50,6 +57,7 @@ model Account {
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -58,6 +66,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {

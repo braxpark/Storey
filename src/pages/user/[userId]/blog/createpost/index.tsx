@@ -1,13 +1,10 @@
 import {NextPage} from "next";
-
 import {useRouter} from "next/router";
 import { useState, useEffect } from "react";
 import Header from "../../../../components/Header";
 import {trpc} from "../../../../../utils/trpc";
 import { useSession, signIn } from "next-auth/react";
 const CreateBlogPost: NextPage = () => {
-    let newBlogId = 0;
-    const {data: checkBlogIdRes} = trpc.blog.getIfBlogIdExists.useQuery(({id: newBlogId}));
     const router = useRouter();
     const { data: sessionData} = useSession();
     const mutation = trpc.blog.createBlogPost.useMutation();
@@ -26,18 +23,7 @@ const CreateBlogPost: NextPage = () => {
         const currentDate = new Date();
         const authorName = String(sessionData?.user?.name);
         console.log(`Author name is: ${authorName}`);
-        const getRandomInteger = () => { return Math.floor((Math.random() * (100000000 - 0) + 0))}
-        let validBlogId = false;
-        while(!validBlogId)
-        {
-            newBlogId = getRandomInteger();
-            if(checkBlogIdRes == null)
-            {
-                validBlogId = true;
-            }
-
-        }
-        await mutation.mutateAsync({id: newBlogId, title: title, content, public: checkBox.checked, createdAt: currentDate, authorId: authId, authorName: authorName});
+        await mutation.mutateAsync({title: title, content, public: checkBox.checked, createdAt: currentDate, authorId: authId, authorName: authorName});
         redirectToBlogPost();
     }
     const [isReady, setIsReady] = useState(false);

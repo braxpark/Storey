@@ -8,7 +8,7 @@ import Loading from "../../../components/Loading";
 
 const Post: NextPage = () => {
     const router = useRouter();
-    const blogId = Number(router.query.id);
+    const blogId = String(router.query.id);
     const { data: sessionData} = useSession();
     const { data: fullBlogPost } = trpc.blog.getBlogPostById.useQuery({id: blogId});
     const user = trpc.user.getUserNameById.useQuery({id: fullBlogPost ? fullBlogPost.authorId : ""})

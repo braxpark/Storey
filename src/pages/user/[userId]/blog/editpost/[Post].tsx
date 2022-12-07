@@ -6,9 +6,8 @@ import Header from "../../../../components/Header";
 import Loading from "../../../../components/Loading";
 import {trpc} from "../../../../../utils/trpc";
 const EditBlogPost: NextPage = () => {
-
     const router = useRouter();
-    const blogId = Number(router.query.id);
+    const blogId = String(router.query.id);
     const {data : blogPost} = trpc.blog.getBlogPostById.useQuery({id: blogId});
     const initPublished = Boolean(blogPost?.public);
     const user = trpc.user.getUserNameById.useQuery({id: String(blogPost?.authorId)});
@@ -16,7 +15,6 @@ const EditBlogPost: NextPage = () => {
     const deletionMutation = trpc.blog.deleteBlogPostById.useMutation();
     const [checked, setChecked] = useState(Boolean(blogPost ? blogPost.public : false));
     const { data: sessionData } = useSession();
-    const [auth, setAuth] = useState(false);
 
     const handleChecked = () => {
         setChecked(!checked);
@@ -56,8 +54,6 @@ const EditBlogPost: NextPage = () => {
         removeBlur();
     }
 
-    const[postContent, setPostContent] = useState(blogPost ? blogPost.content : "");
-    const[postTitle, setPostTitle] = useState(blogPost ? blogPost.title : "");
     const [isReady, setIsReady] = useState(false);
 
     if(isReady)
@@ -78,6 +74,8 @@ const EditBlogPost: NextPage = () => {
         setChecked(initPublished);
         setIsReady(true);
     },[])
+
+
     const mainContent = (<div className={"absolute"}>
     <div className="total-container" id="edit-post-total">
         <Header />
@@ -86,7 +84,7 @@ const EditBlogPost: NextPage = () => {
                 <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={redirectToBlogPost}>Back</button>
                 <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={saveAndRedirect}>Save</button>
                 <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={handleDelete}>Delete</button>
-                <div className="flex flex-col text-center" id="gen-panel">  
+                <div className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button flex flex-col text-center"}>  
                     <h1>Publish</h1>
                     <input checked={checked} id="public-box" type={"checkbox"} onChange={handleChecked}></input>
                 </div>
@@ -112,7 +110,10 @@ const EditBlogPost: NextPage = () => {
         </div>
     </div>
 </div>);
-const loading = (<Loading />);
+
+    const loading = (<Loading />);
+
+
     return(<>{isReady ? mainContent : loading}</>);
 }
 

@@ -2,7 +2,6 @@ import { NextPage } from "next/types";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import {trpc} from "../../utils/trpc";
-import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 
@@ -10,7 +9,6 @@ const Explore: NextPage = () => {
     const router = useRouter();
     const numberOfPostsPerPage = 10;
     const [page, setPage] = useState(1);
-    const { data: sessionData} = useSession();
     const { data: numberOfPosts} = trpc.blog.getNumberOfPublishedPosts.useQuery();
     const blogAuthor = "claikl0ii0000uml0qxbsfd3b";
     let initFilter;
@@ -62,7 +60,6 @@ type BlogListProps = {
     const BlogList: React.FC<BlogListProps> = (props: BlogListProps) => {
         const maxNumEntriesPerPage = numberOfPostsPerPage;
         const offset = (props.page - 1) * maxNumEntriesPerPage;
-        const {data: currentPagePostsRes} = trpc.blog.getRangeOfPublishedPostsWithOffsetAndStride.useQuery({offset: offset, stride: maxNumEntriesPerPage})
         
         const getArrOfBlogPostsFromQueryResult = (blogPostResult: any) => {
             const blogPanels: any = [];
@@ -97,7 +94,7 @@ type BlogListProps = {
                 blogPanelsArr = getArrOfBlogPostsFromQueryResult(currentPagePostsRes);
                 break;
             }
-        case "author":
+        case "author": // WIP need trie like accessing?
             {
                 const { data: currentPagePostsRes} = trpc.blog.getPublishedPostsWithOffsetAndStrideByAuthor.useQuery({offset: offset, stride: maxNumEntriesPerPage, authorId: blogAuthor});
                 blogPanelsArr = getArrOfBlogPostsFromQueryResult(currentPagePostsRes);
@@ -151,7 +148,7 @@ type BlogTileProps = {
     const[isReady, setIsReady] = useState(false);
     
     useEffect(() => {
-            if(numberOfPosts)
+            if(numberOfPosts || numberOfPosts==0)
                 setIsReady(true);
     },)
     return(

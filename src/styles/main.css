@@ -226,18 +226,6 @@ body {
   gap: 20px;
 }
 
-#gen-panel {
-  background-color: white;
-  padding: 10px;
-  border: 1px solid;
-  border-radius: .4em;
-  width: 100%;
-}
-
-#gen-panel:hover { 
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
 #public-box {
   transform: scale(1.1);
   transition: 0.15s linear;

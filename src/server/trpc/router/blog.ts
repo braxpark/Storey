@@ -12,7 +12,7 @@ export const blogRouter = router({
         })
     }),
     getBlogPostById: publicProcedure
-    .input(z.object({id: z.number()}))
+    .input(z.object({id: z.string()}))
     .query(({ctx, input}) => {
         return ctx.prisma.blogPost.findFirst({
             where: {
@@ -21,7 +21,7 @@ export const blogRouter = router({
         })
     }),
     updateBlogPostTitleAndContent: publicProcedure
-    .input(z.object({id: z.number(), title: z.string().nullish(), content: z.string().nullish(), public: z.boolean()}))
+    .input(z.object({id: z.string(), title: z.string().nullish(), content: z.string().nullish(), public: z.boolean()}))
     .mutation(({ctx, input}) => {
         return ctx.prisma.blogPost.update({
             where: {
@@ -35,11 +35,10 @@ export const blogRouter = router({
         })
     }),
     createBlogPost: publicProcedure
-    .input(z.object({id: z.number(), authorName: z.string(), authorId: z.string(), title: z.string(), content: z.string(), public: z.boolean(), createdAt: z.date()}))
+    .input(z.object({authorName: z.string(), authorId: z.string(), title: z.string(), content: z.string(), public: z.boolean(), createdAt: z.date()}))
     .mutation(({ctx, input}) => {
         return ctx.prisma.blogPost.create({
             data: {
-                id: input.id,
                 authorId: input.authorId,
                 authorName: input.authorName,
                 title: input.title,
@@ -51,7 +50,7 @@ export const blogRouter = router({
         })   
     }),
     deleteBlogPostById: publicProcedure
-    .input(z.object({id: z.number()}))
+    .input(z.object({id: z.string()}))
     .mutation(({ctx, input}) => {
         return ctx.prisma.blogPost.delete({
             where: {
@@ -60,7 +59,7 @@ export const blogRouter = router({
         })
     }),
     getIfBlogIdExists: publicProcedure
-    .input(z.object({id: z.number()}))
+    .input(z.object({id: z.string()}))
     .query(({ctx, input}) => {
         return ctx.prisma.blogPost.findUnique({
             where: {
@@ -77,7 +76,7 @@ export const blogRouter = router({
         })
     }),
     getIfPostExists: publicProcedure
-    .input(z.object({blogId: z.number()}))
+    .input(z.object({blogId: z.string()}))
     .query(({ctx, input}) => {
         return ctx.prisma.blogPost.count({
             where: {

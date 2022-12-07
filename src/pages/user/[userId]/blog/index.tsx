@@ -24,7 +24,7 @@ const UserBlog: NextPage = () => {
     },)
 
     type BlogPanelProps = {
-    id: number,
+    id: string,
     title: string,
     authorName: string | null,
     }
