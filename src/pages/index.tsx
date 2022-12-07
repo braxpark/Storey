@@ -19,7 +19,7 @@ const Home: NextPage = () => {
                         <Link href={`/user/${sessionData?.user?.id}/blog`}><mark className={markStyles}>Blog</mark></Link> to get started writing. 
                         <br></br>
                         <br></br>
-                        <Link href={"/user/explore/"}><mark className={markStyles}>Explore</mark></Link> to see our community&#39;s posts.
+                        <Link href={"/explore/"}><mark className={markStyles}>Explore</mark></Link> to see our community&#39;s posts.
                       </div>
                      );
   }
