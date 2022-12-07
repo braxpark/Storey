@@ -11,13 +11,16 @@ const Home: NextPage = () => {
   const loggedIn = sessionData ? true : false;
   let displayMessage;
 
-  const markStyles = "bg-red-600 hover:underline hover:bg-red-600 hover:rounded-lg hover:font-bold p-1.5 duration-300";
+  const markStyles = "bg-red-600 bg-opacity-80 font-bold hover:underline hover:rounded-lg p-1.5 duration-300";
   if(loggedIn)
   {
     displayMessage = (
-                      <>
-                        Click on <Link href={`/user/${sessionData?.user?.id}/blog`}><mark className={markStyles}>Blog</mark></Link> to get started! 
-                      </>
+                      <div className={"p-4"}>
+                        <Link href={`/user/${sessionData?.user?.id}/blog`}><mark className={markStyles}>Blog</mark></Link> to get started writing. 
+                        <br></br>
+                        <br></br>
+                        <Link href={"/user/explore/"}><mark className={markStyles}>Explore</mark></Link> to see our community&#39;s posts.
+                      </div>
                      );
   }
   else{
@@ -28,8 +31,8 @@ const Home: NextPage = () => {
                      );
   }
   const mainWrapper = (
-      <div id="welcome-menu" className={"text-center h-60 bg-white bg-opacity-90 p-12 rounded-lg flex flex-col justify-center items-center"}>
-        <div>
+      <div id="welcome-menu" className={"text-center h-60 bg-white p-12 rounded-lg"}>
+        <div className={"w-full"}>
           Welcome to Storey!
           <br></br>
           <br></br>
