@@ -48,7 +48,8 @@ const UserBlog: NextPage = () => {
 
     const blogPanelsArr: any = [];
     const { data: blogPostRes} = trpc.blog.getAllPostsByAuthorId.useQuery({authorId: id});
-    const user = trpc.user.getUserNameById.useQuery({id: sessionData ? sessionData.user?.id : ""})
+    //const user = trpc.user.getUserNameById.useQuery({id: sessionData ? sessionData.user?.id : ""})
+    const user = trpc.user.getUserNameById.useQuery({id: id});
     const userName = String(user ? user.data?.name : "Anonymous");
     if(blogPostRes)
     {
