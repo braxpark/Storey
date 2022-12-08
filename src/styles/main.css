@@ -522,3 +522,14 @@ https://codepen.io/josetxu/pen/MWXbbeW
   -webkit-box-shadow: 0px 0px 3px 2px #000000; 
   box-shadow: 0px 0px 2px 3px #000000;
 }
+
+#mouse-cursor {
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  z-index: -100;
+  background-color: transparent;
+  box-shadow: 1px -1px 400px 200px rgb(255, 255, 255);
+  -webkit-box-shadow: 1px -1px 400px 145px rgba(255, 255, 255, 0.75);
+  -moz-box-shadow: 1px -1px 400px 200px rgba(0,0,0,0.75);
+}

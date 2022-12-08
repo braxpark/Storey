@@ -6,6 +6,7 @@ const Header: React.FC = () => {
     const userId = sessionData ? sessionData?.user?.id : -1;
     //replace li {true ... with {sessionData && when auth is setup
     return(
+        <>
             <div id="header-container">
                 <nav>
                     <ul>
@@ -28,6 +29,7 @@ const Header: React.FC = () => {
                     </button>
                 </div>
             </div>
+        </>
     );
 }
 
