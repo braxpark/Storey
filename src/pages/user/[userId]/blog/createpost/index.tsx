@@ -33,7 +33,6 @@ const CreateBlogPost: NextPage = () => {
         const blogPost = await mutation.mutateAsync({title: title, content, public: checkBox.checked, createdAt: currentDate, authorId: authId, authorName: authorName});
         for(const hashtag of hashtags)
         {
-            console.log("CREATION!");
             // add hashtag to post
             // on blog id, add with connectOrCreate
             const hashRes = await createHashTagMutation.mutateAsync({value: hashtag});
@@ -48,7 +47,7 @@ const CreateBlogPost: NextPage = () => {
             const url = 'https://api.openai.com/v1/completions'
             const headerData = {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${process.env.NEXT_PUBLIC_OPENAI}`
+                "Authorization": `Bearer ${process.env.NEXT_PUBLIC_OPENAI_SECRET}`
             }
             const n = 3
             const content = String(document.getElementById("blog-post-full-content")?.innerText);
