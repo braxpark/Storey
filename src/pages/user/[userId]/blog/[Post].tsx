@@ -5,9 +5,11 @@ import { useSession } from "next-auth/react";
 import {trpc} from "../../../../utils/trpc";
 import Header from "../../../components/Header";
 import Loading from "../../../components/Loading";
+
 type tagsProps = {
     tagId: string
 }
+
 const Tags: React.FC<tagsProps> = (props: tagsProps) => {
     const {data: tag} = trpc.blog.getHashtagById.useQuery({id: props.tagId});
     return(

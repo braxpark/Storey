@@ -5,6 +5,20 @@ import { useSession } from "next-auth/react";
 import Header from "../../../../components/Header";
 import Loading from "../../../../components/Loading";
 import {trpc} from "../../../../../utils/trpc";
+
+type tagsProps = {
+    tagId: string
+}
+const Tags: React.FC<tagsProps> = (props: tagsProps) => {
+    const {data: tag} = trpc.blog.getHashtagById.useQuery({id: props.tagId});
+    return(
+        <>
+            <div className={" border-solid border-2 rounded-lg border-black p-1 cursor-pointer hover:underline hoverable-button"}>
+                {tag ? tag.value : "No tags."}
+            </div>
+        </>)
+}
+
 const EditBlogPost: NextPage = () => {
     const router = useRouter();
     const blogId = String(router.query.id);
@@ -15,6 +29,18 @@ const EditBlogPost: NextPage = () => {
     const deletionMutation = trpc.blog.deleteBlogPostById.useMutation();
     const [checked, setChecked] = useState(Boolean(blogPost ? blogPost.public : false));
     const { data: sessionData } = useSession();
+
+    const {data: junctions} = trpc.blog.getHashtagIdsFromJunction.useQuery({blogId: blogId});
+        const tagEles: any = []
+        if(junctions != undefined){   
+            let i = 0;
+            for(const junction of junctions)
+            {
+                const currTag = (<Tags tagId={junction ? junction.hashtagId : "undefined"} key={i} />)
+                tagEles.push(currTag)
+                i++;
+            }
+        }
 
     const handleChecked = () => {
         setChecked(!checked);
@@ -88,6 +114,10 @@ const EditBlogPost: NextPage = () => {
                     <h1>Publish</h1>
                     <input checked={checked} id="public-box" type={"checkbox"} onChange={handleChecked}></input>
                 </div>
+            </div>
+            <div className={"relative flex flex-row flex-wrap gap-4 p-2 bg-white bg-opacity-90 w-2/5 left-0 right-0 m-auto mt-2"}>
+                <div>Tags: </div>
+                {tagEles}
             </div>
             <div id="blog-post-full-container">
                 <div contentEditable={true} id="blog-post-title" className="blog-post-full-editable">
