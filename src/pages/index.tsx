@@ -14,8 +14,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
       onmousemove = (e: any) => {
-          const xVal = e.x - 25 >= 0 ? e.x - 25 : -50;
-          const yVal = e.y - 25 >= 0 ? e.y - 25 : -50;
+          const xVal = e.x - 25 >= 0 ? e.x : -50;
+          const yVal = e.y - 25 >= 0 ? e.y : -50;
           if(document.getElementById("mouse-cursor") != null) document.getElementById("mouse-cursor")!.style.left = (xVal + "px");
           if(document.getElementById("mouse-cursor") != null) document.getElementById("mouse-cursor")!.style.top = (yVal + "px");
       }

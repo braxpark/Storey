@@ -22,12 +22,16 @@ model Example {
   updatedAt DateTime @updatedAt
 }
 
-model Hashtag {
-  id        String  @id @default(cuid())
-  value     String
-  blogposts BlogPost[]
+model BlogPostHashTagJunction {
+  junctionId  String @id @default(cuid())
+  blogId      String 
+  hashtagId   String 
 }
 
+model Hashtag {
+  id        String  @id @default(cuid())
+  value     String @unique
+}
 model BlogPost {
   id        String @id @default(cuid())
   createdAt DateTime @default(now())
@@ -37,7 +41,6 @@ model BlogPost {
   title     String
   content   String @db.Text
   public    Boolean?
-  hashtags  Hashtag[]
 }
 
 // Necessary for Next auth

@@ -81,10 +81,10 @@ const EditBlogPost: NextPage = () => {
         <Header />
         <div className="content-container" id="blog-post-full-outer">
             <div className={""} id="blog-post-full-options">
-                <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={redirectToBlogPost}>Back</button>
-                <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={saveAndRedirect}>Save</button>
-                <button className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={handleDelete}>Delete</button>
-                <div className={"min-w-full bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button flex flex-col text-center"}>  
+                <button className={"flex-grow bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={redirectToBlogPost}>Back</button>
+                <button className={"flex-grow bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={saveAndRedirect}>Save</button>
+                <button className={"flex-grow bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button"} id="gen-btn" onClick={handleDelete}>Delete</button>
+                <div className={"flex-grow bg-white p-4 border-2 border-solid rounded-lg border-black hoverable-button flex flex-col text-center"}>  
                     <h1>Publish</h1>
                     <input checked={checked} id="public-box" type={"checkbox"} onChange={handleChecked}></input>
                 </div>

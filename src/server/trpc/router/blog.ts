@@ -130,4 +130,65 @@ export const blogRouter = router({
             },
         })
     }),
+    createHashTagIfNotExists: publicProcedure
+    .input(z.object({value: z.string()}))
+    .mutation(({ctx, input}) => {
+        return ctx.prisma.hashtag.upsert({
+            create: {
+                value: input.value,
+            },
+            update: {
+                value: input.value
+            },
+            where: {
+                value: input.value
+            }
+        })
+    }),
+    getNumberOfTagsByBlogId: publicProcedure
+    .input(z.object({blogId: z.string()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPost.count({
+            where: {
+                id: input.blogId,
+            }
+        })
+    }),
+    addBlogHash: publicProcedure
+    .input(z.object({blogId: z.string(), hashtagId: z.string()}))
+    .mutation(({ctx, input}) => {
+        return ctx.prisma.blogPostHashTagJunction.create({
+            data: {
+                blogId: input.blogId,
+                hashtagId: input.hashtagId,
+            }
+        })
+    }),
+    getHashtagById: publicProcedure
+    .input(z.object({id: z.string()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.hashtag.findUnique({
+            where: {
+                id: input.id
+            }
+        })
+    }),
+    getHashtagIdsFromJunction: publicProcedure
+    .input(z.object({blogId: z.string()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPostHashTagJunction.findMany({
+            where: {
+                blogId: input.blogId
+            }
+        })
+    }),
+    getBlogIdsFromJunction: publicProcedure
+    .input(z.object({hashtagId: z.string()}))
+    .query(({ctx, input}) => {
+        return ctx.prisma.blogPostHashTagJunction.findMany({
+            where: {
+                hashtagId: input.hashtagId,
+            }
+        })
+    })
 });
